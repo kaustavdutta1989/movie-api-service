@@ -1,0 +1,29 @@
+server:
+  port: 8703
+  forward-headers-strategy: framework
+  servlet:
+    context_path: /movie/api/v1
+  error:
+    include-message: always
+    include-exception: false
+    include-binding-errors: never
+    include-stacktrace: never
+
+spring:
+  application:
+    name: movie-api-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/movie_db
+    username: root
+    password: root
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info

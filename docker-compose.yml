@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+
+  mysql:
+    image: 'mysql:latest'
+    ports:
+      - 3313:3313
+    env_file: db.env
+    volumes:
+      - ./initdb:/docker-entrypoint-initdb.d/:ro
+      - mysql_data:/var/lib/mysql
+
+  app:
+    image: app:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./src:/app/src
+    ports:
+      - "8703:8703"
+    links:
+      - mysql
+    env_file: api.env
+
+volumes:
+  mysql_data:
